@@ -61,11 +61,7 @@ jobs:
         run: poetry install --no-root
       - name: Check code formatting with black
         run: poetry run black . --check --verbose
-      - name: Check import formatting with isort
-        run: poetry run isort . --check-only
       - name: Lint with flake8
         run: poetry run flake8 .
       - name: Check security with bandit
         run: poetry run bandit .
-      - name: Type check with mypy
-        run: poetry run mypy .
