@@ -1,0 +1,1 @@
+[![codecov](https://codecov.io/gh/salim-ingram/case-search/branch/master/graph/badge.svg?token=4F3OA5RR7Y)](https://codecov.io/gh/salim-ingram/case-search)
