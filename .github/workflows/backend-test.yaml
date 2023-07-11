@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - "backend/**"
+      - "tests/backend/**"
       - ".github/workflows/backend-test.yaml"
 
 env:
