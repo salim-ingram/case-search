@@ -1,7 +1,6 @@
+from api import app
 from fastapi.testclient import TestClient
 from jsonschema import validate
-
-from backend.api import app
 
 client = TestClient(app)
 
@@ -81,6 +80,23 @@ def test_get_case_by_id():
     assert validate(response.json(), schema) is None
 
 
+def test_create_ris():
+    params = {"id": 5930017}
+    response = client.post("/cases/case/download", params=params)
+    check_file = open("tests/resources/export.ris", "r")
+    assert response.status_code == 200
+    assert len(response.content) == 358
+    assert response.text == check_file.read()
+
+
+def test_get_case_summary():
+    params = {"id": 12458787}
+    schema = {"type": "string"}
+    response = client.post("/cases/case/summary", params=params)
+    assert response.status_code == 200
+    assert validate(response.json(), schema) is None
+
+
 def test_get_case_by_id_with_summary():
     params = {"id": 5956288, "include_summary": True}
     schema = {
@@ -108,20 +124,3 @@ def test_get_case_by_id_with_summary():
     response = client.post("/cases/case", params=params)
     assert response.status_code == 200
     assert validate(response.json(), schema) is None
-
-
-def test_get_case_summary():
-    params = {"id": 12458787}
-    schema = {"type": "string"}
-    response = client.post("/cases/case/summary", params=params)
-    assert response.status_code == 200
-    assert validate(response.json(), schema) is None
-
-
-def test_create_ris():
-    params = {"id": 5930017}
-    response = client.post("/cases/case/download", params=params)
-    check_file = open("resources/export.ris", "r")
-    assert response.status_code == 200
-    assert len(response.content) == 358
-    assert response.text == check_file.read()
