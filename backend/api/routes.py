@@ -1,11 +1,10 @@
 from io import StringIO
 from typing import List, Optional
 
+from api import utilities as utils
 from fastapi import APIRouter, BackgroundTasks
 from fastapi.responses import Response
-
-from backend.api import utilities as utils
-from backend.schemas.case import Case, CaseQuery
+from schemas.case import Case, CaseQuery
 
 router = APIRouter()
 
