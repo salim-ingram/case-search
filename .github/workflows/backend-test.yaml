@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - "backend/**"
-      - ".github/workflows/backend-tests.yaml"
+      - ".github/workflows/backend-test.yaml"
 
 env:
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
