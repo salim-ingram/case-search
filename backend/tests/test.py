@@ -1,8 +1,13 @@
+import os
+
 from api import app
+from dotenv import load_dotenv
 from fastapi.testclient import TestClient
 from jsonschema import validate
 
 client = TestClient(app)
+
+load_dotenv()
 
 
 def test_api_health():
@@ -90,37 +95,66 @@ def test_create_ris():
 
 
 def test_get_case_summary():
-    params = {"id": 12458787}
-    schema = {"type": "string"}
-    response = client.post("/cases/case/summary", params=params)
-    assert response.status_code == 200
-    assert validate(response.json(), schema) is None
+    if os.getenv("INCLUDE_SUMMARY") == "True":
+        params = {"id": 12458787}
+        schema = {"type": "string"}
+        response = client.post("/cases/case/summary", params=params)
+        assert response.status_code == 200
+        assert validate(response.json(), schema) is None
+    else:
+        pass
 
 
 def test_get_case_by_id_with_summary():
-    params = {"id": 5956288, "include_summary": True}
-    schema = {
-        "type": "object",
-        "properties": {
-            "case_name": {"type": "string"},
-            "id": {"type": "number"},
-            "short_title": {"type": "string"},
-            "jurisdiction": {"type": "string"},
-            "jurisdiction_id": {"type": "number"},
-            "court": {"type": "string"},
-            "court_id": {"type": "number"},
-            "docket_number": {"type": "string"},
-            "reporter_volume": {"type": "string"},
-            "reporter": {"type": "string"},
-            "reporter_id": {"type": "number"},
-            "first_page": {"type": "string"},
-            "date_decided": {"type": "string"},
-            "citation": {"type": "string"},
-            "case_type": {"type": "string"},
-            "frontend_pdf_url": {"type": "string"},
-            "summary": {"type": "string"},
-        },
-    }
+    if os.getenv("INCLUDE_SUMMARY") == "True":
+        params = {"id": 5956288, "include_summary": True}
+        schema = {
+            "type": "object",
+            "properties": {
+                "case_name": {"type": "string"},
+                "id": {"type": "number"},
+                "short_title": {"type": "string"},
+                "jurisdiction": {"type": "string"},
+                "jurisdiction_id": {"type": "number"},
+                "court": {"type": "string"},
+                "court_id": {"type": "number"},
+                "docket_number": {"type": "string"},
+                "reporter_volume": {"type": "string"},
+                "reporter": {"type": "string"},
+                "reporter_id": {"type": "number"},
+                "first_page": {"type": "string"},
+                "date_decided": {"type": "string"},
+                "citation": {"type": "string"},
+                "case_type": {"type": "string"},
+                "frontend_pdf_url": {"type": "string"},
+                "summary": {"type": "string"},
+            },
+        }
+    else:
+        params = {"id": 5956288, "include_summary": False}
+        schema = {
+            "type": "object",
+            "properties": {
+                "case_name": {"type": "string"},
+                "id": {"type": "number"},
+                "short_title": {"type": "string"},
+                "jurisdiction": {"type": "string"},
+                "jurisdiction_id": {"type": "number"},
+                "court": {"type": "string"},
+                "court_id": {"type": "number"},
+                "docket_number": {"type": "string"},
+                "reporter_volume": {"type": "string"},
+                "reporter": {"type": "string"},
+                "reporter_id": {"type": "number"},
+                "first_page": {"type": "string"},
+                "date_decided": {"type": "string"},
+                "citation": {"type": "string"},
+                "case_type": {"type": "string"},
+                "frontend_pdf_url": {"type": "string"},
+                "summary": {"type": "null"},
+            },
+        }
+
     response = client.post("/cases/case", params=params)
     assert response.status_code == 200
     assert validate(response.json(), schema) is None

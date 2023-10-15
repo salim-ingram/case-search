@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - "backend/**"
-      - "tests/backend/**"
       - ".github/workflows/test.yaml"
 
 env:
@@ -20,7 +19,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        working-directory: backend
+        working-directory: .
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
