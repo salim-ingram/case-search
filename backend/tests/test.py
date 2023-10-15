@@ -88,7 +88,7 @@ def test_get_case_by_id():
 def test_create_ris():
     params = {"id": 5930017}
     response = client.post("/cases/case/download", params=params)
-    check_file = open("tests/resources/export.ris", "r")
+    check_file = open("backend/tests/resources/export.ris", "r")
     assert response.status_code == 200
     assert len(response.content) == 358
     assert response.text == check_file.read()
