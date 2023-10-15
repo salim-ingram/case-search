@@ -4,7 +4,7 @@ on:
     paths:
       - "backend/**"
       - "tests/backend/**"
-      - ".github/workflows/backend-test.yaml"
+      - ".github/workflows/test.yaml"
 
 env:
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
