@@ -1,9 +1,10 @@
 import os
 
-from api import app
 from dotenv import load_dotenv
 from fastapi.testclient import TestClient
 from jsonschema import validate
+
+from backend.api import app
 
 client = TestClient(app)
 

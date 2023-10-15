@@ -4,7 +4,8 @@ from typing import List
 import openai
 import requests
 from dotenv import load_dotenv
-from schemas.case import Case, CaseQuery
+
+from backend.schemas.case import Case, CaseQuery
 
 load_dotenv()
 

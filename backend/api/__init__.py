@@ -1,5 +1,6 @@
-from api.routes import router as cases_router
 from fastapi import FastAPI
+
+from backend.api.routes import router as cases_router
 
 app = FastAPI()
 
