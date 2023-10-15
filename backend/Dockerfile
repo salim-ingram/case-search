@@ -11,7 +11,7 @@ RUN pip install poetry
 COPY ./pyproject.toml ./poetry.lock* /tmp/
 
 # 
-RUN poetry export --only backend -f requirements.txt --output requirements.txt --without-hashes
+RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 # 
 FROM python:3.10-slim
@@ -38,3 +38,6 @@ RUN pip install --no-cache-dir --upgrade -r /backend/requirements.txt
 
 # 
 COPY . /backend
+
+#
+CMD ["uvicorn", "backend.api:app", "--host", "0.0.0.0", "--port", "80"]

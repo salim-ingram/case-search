@@ -9,8 +9,10 @@ repository = "https://github.com/salim-ingram/case-search"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+fastapi = "^0.100.0"
+uvicorn = "^0.22.0"
+python-dotenv = "^1.0.0"
 openai = "^0.28.1"
-
 
 
 [tool.poetry.group.dev.dependencies]
@@ -22,13 +24,6 @@ pytest-cov = "^4.1.0"
 httpx = "^0.24.1"
 jsonschema = "^4.18.0"
 types-requests = "^2.31.0.1"
-
-
-[tool.poetry.group.backend.dependencies]
-fastapi = "^0.100.0"
-uvicorn = "^0.22.0"
-python-dotenv = "^1.0.0"
-openai = "^0.28.1"
 
 
 [build-system]
